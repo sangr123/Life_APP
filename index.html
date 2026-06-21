@@ -139,6 +139,35 @@
     meta("apple-mobile-web-app-title","라이프");
     meta("theme-color","#ecfdf5");
     document.title="라이프 대시보드";
+
+    // ---------- 앱 아이콘 (잎사귀 한 장) ----------
+    var ic=document.createElement("canvas"); ic.width=180; ic.height=180;
+    var x=ic.getContext("2d"), s=1;
+    var g=x.createLinearGradient(0,0,180,180);
+    g.addColorStop(0,"#6ee7b7"); g.addColorStop(1,"#059669");
+    x.fillStyle=g; x.fillRect(0,0,180,180);
+    x.save(); x.translate(90,90); x.rotate(-Math.PI/10);
+    var h=60*s, cw=40*s;
+    x.beginPath();
+    x.moveTo(0,-h);
+    x.quadraticCurveTo(cw, h*0.06, 0, h);
+    x.quadraticCurveTo(-cw, h*0.06, 0, -h);
+    x.closePath();
+    x.fillStyle="#ffffff"; x.fill();
+    x.strokeStyle="#a7f3d0"; x.lineCap="round";
+    x.lineWidth=3.4; x.beginPath(); x.moveTo(0,-h*0.82); x.lineTo(0,h*0.82); x.stroke();
+    x.lineWidth=2.2;
+    for(var vi=-2; vi<=2; vi++){
+      if(vi===0) continue;
+      var yy=vi*(h*0.24);
+      x.beginPath(); x.moveTo(0,yy); x.quadraticCurveTo(cw*0.32, yy-10, cw*0.52, yy-20); x.stroke();
+      x.beginPath(); x.moveTo(0,yy); x.quadraticCurveTo(-cw*0.32, yy-10, -cw*0.52, yy-20); x.stroke();
+    }
+    x.restore();
+    var iconUrl=ic.toDataURL("image/png");
+    function iconLink(rel,sizes){ var l=document.createElement("link"); l.setAttribute("rel",rel); if(sizes) l.setAttribute("sizes",sizes); l.setAttribute("href",iconUrl); document.head.appendChild(l); }
+    iconLink("apple-touch-icon","180x180");
+    iconLink("icon");
   }catch(e){}
 
   // ---------- storage ----------
